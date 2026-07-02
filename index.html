@@ -1,23 +1,200 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcards - Olho Humano: Fato ou Fake?</title>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#4facfe,#00f2fe);
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    text-align:center;
+}
+
+.card{
+    width:420px;
+    height:260px;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,.3);
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:1.4em;
+    font-weight:bold;
+    cursor:pointer;
+    transition:transform .4s;
+    margin:auto;
+}
+
+.card:hover{
+    transform:scale(1.03);
+}
+
+.buttons{
+    margin-top:20px;
+}
+
+button{
+    padding:10px 20px;
+    margin:5px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    color:white;
+}
+
+.fato{
+    background:#28a745;
+}
+
+.fake{
+    background:#dc3545;
+}
+
+#resultado{
+    margin-top:15px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+#proximo{
+    background:#007bff;
+    display:none;
+}
+</style>
 </head>
 <body>
-    <header>
-        <h1>Você Sabia </h1>
-        <nav>
-            <a href="#">inicio</a>
-        </nav>
-    </header>
-    <main>
-        <h2>descubra se é fatos ou fake apenas passando o mouse</h2>
-        <article>
-            
-        </article>
-    </main>
-    <footer></footer>
+
+<div class="container">
+
+<h1>👁️ Flashcards: Fato ou Fake?</h1>
+
+<div class="card" id="card">
+Clique em uma resposta!
+</div>
+
+<div class="buttons">
+<button class="fato" onclick="responder('Fato')">FATO</button>
+<button class="fake" onclick="responder('Fake')">FAKE</button>
+</div>
+
+<div id="resultado"></div>
+
+<button id="proximo" onclick="proximaCarta()">Próximo</button>
+
+</div>
+
+<script>
+
+const cartas = [
+{
+pergunta:"O olho humano consegue distinguir milhões de cores.",
+resposta:"Fato",
+explicacao:"O olho humano consegue perceber milhões de variações de cores."
+},
+{
+pergunta:"Ler no escuro deixa a visão permanentemente ruim.",
+resposta:"Fake",
+explicacao:"Pode causar cansaço visual, mas não provoca perda permanente da visão."
+},
+{
+pergunta:"Piscamos para manter os olhos lubrificados.",
+resposta:"Fato",
+explicacao:"As lágrimas espalham-se pela superfície do olho a cada piscada."
+},
+{
+pergunta:"Comer cenoura faz qualquer pessoa enxergar no escuro.",
+resposta:"Fake",
+explicacao:"A vitamina A ajuda na visão, mas não dá visão noturna especial."
+},
+{
+pergunta:"A córnea é transparente e ajuda a focar a luz.",
+resposta:"Fato",
+explicacao:"Ela é uma das principais estruturas responsáveis pela focalização da imagem."
+},
+{
+pergunta:"Usar óculos deixa os olhos mais fracos.",
+resposta:"Fake",
+explicacao:"Os óculos apenas corrigem a visão; eles não enfraquecem os olhos."
+},
+{
+pergunta:"A pupila muda de tamanho conforme a quantidade de luz.",
+resposta:"Fato",
+explicacao:"Ela dilata no escuro e contrai em ambientes claros."
+},
+{
+pergunta:"Olhar para telas causa cegueira.",
+resposta:"Fake",
+explicacao:"O uso excessivo pode causar fadiga ocular, mas não cegueira."
+},
+{
+pergunta:"Cada pessoa possui uma íris praticamente única.",
+resposta:"Fato",
+explicacao:"A íris possui padrões exclusivos, semelhantes às impressões digitais."
+},
+{
+pergunta:"Podemos espirrar com os olhos abertos normalmente.",
+resposta:"Fake",
+explicacao:"O reflexo natural é fechar os olhos durante o espirro."
+}
+];
+
+let indice = 0;
+
+const card = document.getElementById("card");
+const resultado = document.getElementById("resultado");
+const proximo = document.getElementById("proximo");
+
+function mostrarCarta(){
+    card.innerHTML = cartas[indice].pergunta;
+    resultado.innerHTML = "";
+    proximo.style.display="none";
+}
+
+mostrarCarta();
+
+function responder(escolha){
+
+    if(escolha === cartas[indice].resposta){
+        resultado.innerHTML =
+        "✅ Correto!<br><br>" + cartas[indice].explicacao;
+        resultado.style.color="green";
+    }else{
+        resultado.innerHTML =
+        "❌ Errado! A resposta correta é <b>" +
+        cartas[indice].resposta +
+        "</b>.<br><br>" +
+        cartas[indice].explicacao;
+        resultado.style.color="red";
+    }
+
+    proximo.style.display="inline-block";
+}
+
+function proximaCarta(){
+
+    indice++;
+
+    if(indice >= cartas.length){
+        indice = 0;
+        alert("Parabéns! Você concluiu todos os flashcards!");
+    }
+
+    mostrarCarta();
+}
+
+</script>
+
 </body>
 </html>
